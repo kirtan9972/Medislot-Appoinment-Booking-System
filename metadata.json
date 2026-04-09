@@ -1,0 +1,5 @@
+{
+  "name": "Medislot Project",
+  "description": "A pure frontend medical appointment booking system built with React, featuring a crafted UI and persistent local storage.",
+  "requestFramePermissions": []
+}
