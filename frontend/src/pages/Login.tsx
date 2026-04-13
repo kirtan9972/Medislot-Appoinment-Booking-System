@@ -9,11 +9,22 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({ email: '', password: '' });
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const validate = () => {
+    const newErrors = { email: '', password: '' };
+    if (!email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Email is invalid';
+    if (!password) newErrors.password = 'Password is required';
+    setErrors(newErrors);
+    return !newErrors.email && !newErrors.password;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setLoading(true);
     try {
       const response = await API.login(email, password);
@@ -47,8 +58,8 @@ const Login: React.FC = () => {
                   className="form-control"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
+                {errors.email && <div className="text-danger">{errors.email}</div>}
               </div>
               <div className="mb-4">
                 <label className="form-label">Password</label>
@@ -57,8 +68,8 @@ const Login: React.FC = () => {
                   className="form-control"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
+                {errors.password && <div className="text-danger">{errors.password}</div>}
               </div>
               <button type="submit" className="btn btn-primary w-full py-2" disabled={loading}>
                 {loading ? 'Logging in...' : 'Login'}

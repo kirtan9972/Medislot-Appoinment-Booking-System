@@ -6,8 +6,14 @@ import jwt from "jsonwebtoken";
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password, role } = req.body;
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "name, email and password are required" });
+    if (!name || !name.trim()) {
+      return res.status(400).json({ message: "Name is required" });
+    }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      return res.status(400).json({ message: "Valid email is required" });
+    }
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
     const existing = await User.findOne({ email });
@@ -15,7 +21,7 @@ export const register = async (req: Request, res: Response) => {
 
     const hashed = await bcrypt.hash(password, 10);
     const user = await User.create({
-      name,
+      name: name.trim(),
       email,
       password: hashed,
       role: role === "admin" ? "admin" : "client",
@@ -36,8 +42,11 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ message: "email and password are required" });
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      return res.status(400).json({ message: "Valid email is required" });
+    }
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
     }
 
     const user = await User.findOne({ email });

@@ -12,10 +12,24 @@ const Register: React.FC = () => {
     role: 'client',
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({ name: '', email: '', password: '', role: '' });
   const navigate = useNavigate();
+
+  const validate = () => {
+    const newErrors = { name: '', email: '', password: '', role: '' };
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    if (!formData.role) newErrors.role = 'Role is required';
+    setErrors(newErrors);
+    return !newErrors.name && !newErrors.email && !newErrors.password && !newErrors.role;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
     setLoading(true);
     try {
       await API.register(formData.name, formData.email, formData.password, formData.role);
@@ -48,8 +62,8 @@ const Register: React.FC = () => {
                   className="form-control"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
                 />
+                {errors.name && <div className="text-danger">{errors.name}</div>}
               </div>
               <div className="mb-3">
                 <label className="form-label">Email Address</label>
@@ -58,8 +72,8 @@ const Register: React.FC = () => {
                   className="form-control"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
                 />
+                {errors.email && <div className="text-danger">{errors.email}</div>}
               </div>
               <div className="mb-3">
                 <label className="form-label">Password</label>
@@ -68,8 +82,8 @@ const Register: React.FC = () => {
                   className="form-control"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  required
                 />
+                {errors.password && <div className="text-danger">{errors.password}</div>}
               </div>
               <div className="mb-4">
                 <label className="form-label">I am a:</label>
@@ -81,6 +95,7 @@ const Register: React.FC = () => {
                   <option value="client">Patient</option>
                   <option value="admin">Admin</option>
                 </select>
+                {errors.role && <div className="text-danger">{errors.role}</div>}
               </div>
               <button type="submit" className="btn btn-primary w-full py-2" disabled={loading}>
                 {loading ? 'Creating account...' : 'Register'}
