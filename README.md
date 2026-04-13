@@ -1,20 +1,126 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🏥 Medislot - Appointment Booking System
 
-# Run and deploy your AI Studio app
+Medislot is a web-based appointment booking system that allows users to book doctor appointments easily and efficiently. It simplifies the process of scheduling, managing, and tracking appointments for both patients and administrators.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/c8f8d297-b275-422f-a0e6-53a17e10f1b2
+## 🚀 Features
 
-## Run Locally
+* 👤 User Registration & Login
+* 🩺 Doctor Listing & Availability
+* 📅 Appointment Booking System
+* ❌ Cancel / Manage Appointments
+* 🔐 Secure Authentication
+* 📊 Admin Panel (if implemented)
 
-**Prerequisites:**  Node.js
+---
 
+## 🛠️ Tech Stack
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+**Frontend:**
+
+* HTML
+* CSS
+* JavaScript
+
+**Backend:**
+
+* Node.js
+* Express.js
+
+**Database:**
+
+* MongoDB
+
+---
+
+## 📁 Project Structure
+
+```
+medislot-project/
+│
+├── frontend/        # UI / Client Side
+├── backend/         # Server Side (API)
+├── models/          # Database Models
+├── routes/          # API Routes
+├── controllers/     # Logic
+├── config/          # DB & Config files
+└── package.json
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/kirtan9972/Medislot-Appoinment-Booking-System.git
+cd medislot-project
+```
+
+---
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Setup Environment Variables
+
+Create `.env` file and add:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+---
+
+### 4️⃣ Run the Project
+
+```bash
+npm start
+```
+
+---
+
+## 📸 Screenshots
+
+*Add your project screenshots here*
+
+---
+
+## 📌 Future Improvements
+
+* 💳 Online Payment Integration
+* 📱 Mobile Responsive UI
+* 📅 Real-time Slot Availability
+* 🔔 Notification System
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to fork this repo and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is for educational purposes.
+
+---
+
+## 👨‍💻 Author
+
+**Kirtan Chauhan**
+🔗 GitHub: https://github.com/kirtan9972
+
+---
+
+⭐ If you like this project, don't forget to star the repository!
